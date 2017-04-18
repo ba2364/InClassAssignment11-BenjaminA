@@ -4,17 +4,23 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private CitiesAdapter citiesAdapter;
+    private CityAdapter cityAdapter;
+    private List<City> cities;
+
 
 
     private DatabaseReference citiesReference = FirebaseDatabase.getInstance().getReference("cities");
@@ -25,21 +31,41 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initialData();
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        citiesAdapter = new CitiesAdapter(citiesReference);
 
-
-        recyclerView.setAdapter(citiesAdapter);
+        cityAdapter = new CityAdapter(cities, this);
+        recyclerView.setAdapter(cityAdapter);
     }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        citiesAdapter.cleanup(); // Stop listening if the activity is destroyed
+        cityAdapter.cleanup(); // Stop listening if the activity is destroyed
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_add:
+                cities.add(getRandomCity());
+                cityAdapter.notifyDataSetChanged();   // this is important to inform the program that data has changed
+                Toast.makeText(this, "City added", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
