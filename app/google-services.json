@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "479814551739",
+    "firebase_url": "https://inclassassignment11-benjamina.firebaseio.com",
+    "project_id": "inclassassignment11-benjamina",
+    "storage_bucket": "inclassassignment11-benjamina.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479814551739:android:4ec79c8b03a47573",
+        "android_client_info": {
+          "package_name": "com.ba2364.inclassassignment11_benjamina"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "479814551739-t5t1au1shg3esti7tvrjf1tbbbjq5s9s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ba2364.inclassassignment11_benjamina",
+            "certificate_hash": "129d3a5774714432af462eedd03315cf282f01bb"
+          }
+        },
+        {
+          "client_id": "479814551739-jk29aaf8scjfeqcuprc10jkvp8pgs90k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW5iSL6v6sgfOlK0GphaPi9lfyZeOayUs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "479814551739-jk29aaf8scjfeqcuprc10jkvp8pgs90k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
