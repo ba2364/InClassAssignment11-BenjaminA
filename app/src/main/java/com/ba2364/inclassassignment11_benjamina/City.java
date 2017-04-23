@@ -1,6 +1,8 @@
 package com.ba2364.inclassassignment11_benjamina;
 
-public class City {
+import java.io.Serializable;
+
+public class City implements Serializable{
     public String id;
     public String name;
     public int pop;

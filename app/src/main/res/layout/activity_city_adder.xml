@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ba2364.inclassassignment11_benjamina.CityAdder">
+
+    <EditText
+        android:id="@+id/city_name_box"
+        style="@style/EditTextStyle"
+        android:hint="@string/cityName"/>
+
+    <EditText
+        android:id="@+id/city_pop_box"
+        style="@style/EditTextStyle"
+        android:hint="@string/population"/>
+
+    <CheckBox
+        android:id="@+id/bigSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="@string/bigCity"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+</LinearLayout>

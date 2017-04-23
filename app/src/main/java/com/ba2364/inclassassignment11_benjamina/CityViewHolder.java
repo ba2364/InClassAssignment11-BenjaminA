@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
 
 public class CityViewHolder extends RecyclerView.ViewHolder {
 
@@ -35,8 +36,11 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, cityNameText.getText(), Toast.LENGTH_SHORT).show();
+                Intent msIntent = new Intent(context, CityAdder.class);
+                msIntent.putExtra(Keys.CITY, city);
+                context.startActivity(msIntent);
             }
         });
+
     }
 }
-
