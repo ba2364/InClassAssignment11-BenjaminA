@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private CityAdapter cityAdapter;
 
-    private DatabaseReference cityReference = FirebaseDatabase.getInstance().getReference("planet");
+    private DatabaseReference cityReference = FirebaseDatabase.getInstance().getReference("cityNameBox");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
