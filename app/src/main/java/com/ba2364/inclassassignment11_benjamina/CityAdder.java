@@ -1,5 +1,6 @@
 package com.ba2364.inclassassignment11_benjamina;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -10,19 +11,19 @@ import android.widget.EditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.UUID;
 
 public class CityAdder extends AppCompatActivity {
 
-    private FirebaseDatabase data = FirebaseDatabase.getInstance();
-    private DatabaseReference cityReference = data.getReference("cityNameBox");
+    private DatabaseReference cityReference = FirebaseDatabase.getInstance().getReference("city");
+    private ArrayList<City> cities = new ArrayList<>();
 
-
-    private EditText cityNameBox;
-    private EditText cityPopBox;
-    private CheckBox cityBigChecker;
-
-    private City city;
+    private EditText nameEditBox;
+    private EditText popEditBox;
+    private CheckBox bigCityCheck;
+    private City cityObject;
 
 
     @Override
@@ -31,17 +32,17 @@ public class CityAdder extends AppCompatActivity {
         setContentView(R.layout.activity_city_adder);
 
         if (getIntent() != null)
-            city = (City) getIntent().getSerializableExtra(Keys.CITY);
+            cityObject = (City) getIntent().getSerializableExtra(Keys.CITY);
 
-        cityNameBox = (EditText) findViewById(R.id.city_name_box);
-        cityPopBox = (EditText) findViewById(R.id.city_pop_box);
-        cityBigChecker = (CheckBox) findViewById(R.id.bigSwitch);
+        nameEditBox = (EditText) findViewById(R.id.city_name_box);
+        popEditBox = (EditText) findViewById(R.id.city_pop_box);
+        bigCityCheck = (CheckBox) findViewById(R.id.bigCheck);
 
-        if (city != null)
-        {
-            cityNameBox.setText(city.name);
-            cityPopBox.setText(String.valueOf(city.pop));
-            cityBigChecker.setChecked(city.bigCity);
+        if (cityObject != null) {
+            nameEditBox.setText(cityObject.cityName);
+            popEditBox.setText(String.valueOf(cityObject.cityPopulation));
+            bigCityCheck.setChecked(cityObject.cityBig);
+
         }
     }
 
@@ -55,33 +56,38 @@ public class CityAdder extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_save:
-                if (city == null)
-                    addCity();
-                else
-                    saveCity();
-                finish();
+                String id = UUID.randomUUID().toString();
+                String cityName = nameEditBox.getText().toString();
+                int cityPop = Integer.parseInt(popEditBox.getText().toString());
+                boolean isBig = bigCityCheck.isChecked();
+                cityReference.child(id).setValue(new City(id, cityName, cityPop, isBig));
+
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.menu_item_trash:
-                if (city != null)
-                    cityReference.child(city.id).removeValue();
-                finish();
-                default:
-                    return super.onOptionsItemSelected(item);
+                if (cityObject != null)
+                    cityReference.child(cityObject.id).removeValue();
+                Intent intent2 = new Intent(this, MainActivity.class);
+                startActivity(intent2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
         }
     }
 
-    public void addCity(){
+    public void addPlanet() {
         String id = UUID.randomUUID().toString();
-        City city = new City(id, cityNameBox.getText().toString(), Integer.parseInt(cityPopBox.getText().toString()), cityBigChecker.isChecked());
-        cityReference.child(id).setValue(city);
+        City p = new City(id, nameEditBox.getText().toString(), Integer.parseInt(popEditBox.getText().toString()), bigCityCheck.isChecked());
+        cityReference.child(id).setValue(p);
     }
 
-    public void saveCity(){
-        city.name = cityNameBox.getText().toString();
-        city.pop = Integer.parseInt(cityPopBox.getText().toString());
-        city.bigCity = cityBigChecker.isChecked();
+    public void savePlanet() {
+        cityObject.cityName = nameEditBox.getText().toString();
+        cityObject.cityPopulation = Integer.parseInt(popEditBox.getText().toString());
+        cityObject.cityBig = bigCityCheck.isChecked();
 
-        cityReference.child(city.id).setValue(city);
+        cityReference.child(cityObject.id).setValue(nameEditBox);
     }
 }
-

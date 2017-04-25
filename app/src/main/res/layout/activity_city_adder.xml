@@ -17,7 +17,7 @@
         android:hint="@string/population"/>
 
     <CheckBox
-        android:id="@+id/bigSwitch"
+        android:id="@+id/bigCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
